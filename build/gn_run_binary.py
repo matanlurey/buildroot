@@ -19,6 +19,10 @@ path = './' + sys.argv[1]
 # The rest of the arguements are passed directly to the executable.
 args = [path] + sys.argv[2:]
 
+# If MacOS, prefix with "time -l" to get timing information.
+if sys.platform == 'darwin':
+  args = ['time', '-l'] + args
+
 try:
   subprocess.check_output(args, stderr=subprocess.STDOUT)
 except subprocess.CalledProcessError as ex:
